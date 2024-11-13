@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class CreditConditions {
-    char type;          // 'a' for annuity, 'd' for differentiated
+    char type;          
     double totalCredit;
     double rate;
     int term;
