@@ -3,36 +3,30 @@ package Calcul;
 import java.util.*;
 
 public class CalculatorModel {
-    // зоны, которые в нашей программе не может изменять пользователь и другие разработчики
     private Stack<Character> operations = new Stack<>();
     private Stack<Double> numbers = new Stack<>();
     private String expression;
     private double x;
 
-    //функция, которая позволяет установить выражение. Удаляет предыдущие значения и подставляет новое
         public void setExpression(String expression) {
         operations.clear();
         numbers.clear();
         this.expression = expression;
     }
-    // позволяет подставить х
+    
     public void setXValue(double x) {
         this.x = x;
     }
-    // функция, где проходит расчет
+    
     public void calculate() {
-        // проверка на корректность ввода.
         //Если нет операторов(+,- и т.д.) или чисел, то из программы выйдет и возникнет ошибка.
         if (operations.isEmpty() || numbers.isEmpty()) {
             throw new IllegalStateException("Incorrect expression");
         }
-        // pop - функция, которая удаляет сверху оператор/число и присваевает его переменной.
         char sign = operations.pop();
         double num1 = numbers.pop();
         double num2 = 0;
 
-        // ищем указанные знаки через метод возвращения индекса первого значения indexOf(),
-        // если ничего не находит, то он вернет "-1"
         if ("+-*/^m".indexOf(sign) != -1) {
             if (numbers.isEmpty()) {
                 throw new IllegalStateException("Incorrect expression");
@@ -59,7 +53,6 @@ public class CalculatorModel {
         }
     }
 
-    // Через метод проверяем есть ли в веденном выражении эти названия функций и присваиваем им индекс
     public int readFunction(String expression) {
         int index = 0;
         if (expression.startsWith("ln")) {
@@ -97,7 +90,7 @@ public class CalculatorModel {
         }
         return index;
     }
-    // присваиваем "действия"
+
     public int getRank(char type) {
         switch (type) {
             case '(': return 0;
@@ -120,7 +113,7 @@ public class CalculatorModel {
         }
     }
 
-    // парсер строки, чтобы считывать операторы, числа и функции
+    
     public double parse() {
         int bracket = 0;
         for (int i = 0; i < expression.length(); i++) {
